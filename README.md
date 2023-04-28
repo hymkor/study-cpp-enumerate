@@ -30,8 +30,9 @@ void put(const enumerator<std::string> &each)
 }
 ```
 
-+ sub.cpp 側では、vector も set も include していない
-+ vector や set などのコレクションを引き受ける引数の型は `enumerator<T>` という型にしておく.
++ `sub.cpp` 側では、`<vector>` も `<set>` も include していない  
+  ( ただし、`"enumerate.h"` の中で `<functional.h>` だけは include している。詳しくは後述 )
++ `std::vector` や `std::set` などのコレクションを引き受ける引数の型は `enumerator<T>` という型にしておく.
 
 #### 呼び出し側 (main.cpp)
 
@@ -61,7 +62,7 @@ int main(void)
 }
 ```
 
-+ 呼び出す際は、`std::vector<T>` や `std::set<T>` を `make_enumerator` という関数で、`enumerator<T>` へ変換して、put へ引き渡す.
++ 呼び出す際は、`std::vector<T>` や `std::set<T>` を `make_enumerator` という関数で、`enumerator<T>` へ変換して、`put` へ引き渡す.
 
 #### 出力
 
