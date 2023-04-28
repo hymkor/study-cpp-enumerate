@@ -1,17 +1,9 @@
 #include <string>
 #include <vector>
-#include <iostream>
 #include <set>
-
 #include "enumerate.h"
 
-void put(const enumerator<std::string> &each)
-{
-    std::string value;
-    while( each(value) ){
-        std::cout << value << std::endl;
-    }
-}
+extern void put(const enumerator<std::string> &each);
 
 int main(void)
 {
