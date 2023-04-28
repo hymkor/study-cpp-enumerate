@@ -20,12 +20,12 @@ int main(void)
     v.push_back( "b" );
     v.push_back( "c" );
 
-    put( make_enumerator<std::vector<std::string>>(v.begin(),v.end()) );
+    put( make_enumerator(v) );
 
     std::set<std::string> s;
     s.insert( "1" );
     s.insert( "2" );
     s.insert( "3" );
 
-    put( make_enumerator<std::set<std::string>>(s.begin(),s.end()) );
+    put( make_enumerator(s) );
 }
