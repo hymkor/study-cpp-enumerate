@@ -8,6 +8,7 @@ std::vector / std::set 両方からデータを取れる関数をテンプレー
 
 + [std::vector / std::set 両方からデータを取れる関数をあまりテンプレートにしたくない - 標準愚痴出力](https://zetamatta.hatenablog.com/entry/2019/09/22/080313)
 + [(続) std::vector / std::set 両方からデータを取れる関数をあまりテンプレートにしたくない - 標準愚痴出力](https://zetamatta.hatenablog.com/entry/2019/09/22/131156)
++ [(続々) std::vector / std::set 両方からデータを取れる関数をあまりテンプレートにしたくない - 標準愚痴出力](https://zetamatta.hatenablog.com/entry/2019/09/22/163822)
 
 最新成果
 --------
