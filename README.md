@@ -22,7 +22,7 @@ std::vector / std::set 両方からデータを取れる関数をテンプレー
 #include <iostream>
 #include "enumerate.h"
 
-void put(const enumerator<std::string> &each)
+void put(enumerator<std::string> &each)
 {
     std::string value;
     while( each(value) ){
@@ -43,7 +43,7 @@ void put(const enumerator<std::string> &each)
 #include <set>
 #include "enumerate.h"
 
-extern void put(const enumerator<std::string> &each);
+extern void put(enumerator<std::string> &each);
 
 int main(void)
 {
@@ -107,7 +107,7 @@ public:
 };
 
 template <typename T>
-using enumerator = std::function<bool(T&)>;
+using enumerator = const std::function<bool(T&)>;
 
 template <typename T>
 enumerator_impl<T> make_enumerator(T &collection)
