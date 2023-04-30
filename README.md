@@ -75,14 +75,16 @@ int main(void)
 
 #### 出力
 
-```
-$ a
+``` ./main |
 a
 b
 c
 1
 2
 3
+x
+y
+z
 ```
 
 ### 実装 (enumerate.h)
