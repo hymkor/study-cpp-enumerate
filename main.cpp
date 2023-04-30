@@ -3,7 +3,7 @@
 #include <set>
 #include "enumerate.h"
 
-extern void put(const enumerator<std::string> &each);
+extern void put(enumerator<std::string> &each);
 
 int main(void)
 {

@@ -2,7 +2,7 @@
 #include <iostream>
 #include "enumerate.h"
 
-void put(const enumerator<std::string> &each)
+void put(enumerator<std::string> &each)
 {
     std::string value;
     while( each(value) ){

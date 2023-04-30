@@ -17,7 +17,7 @@ public:
 };
 
 template <typename T>
-using enumerator = std::function<bool(T&)>;
+using enumerator = const std::function<bool(T&)>;
 
 template <typename T>
 enumerator_impl<T> make_enumerator(T &collection)
