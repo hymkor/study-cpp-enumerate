@@ -41,6 +41,7 @@ void put(enumerator<std::string> &each)
 #include <string>
 #include <vector>
 #include <set>
+#include <list>
 #include "enumerate.h"
 
 extern void put(enumerator<std::string> &each);
@@ -60,6 +61,13 @@ int main(void)
     s.insert( "3" );
 
     put( make_enumerator(s) );
+
+    std::list<std::string> ls;
+    ls.push_back( "x" );
+    ls.push_back( "y" );
+    ls.push_back( "z" );
+
+    put( make_enumerator(ls) );
 }
 ```
 
