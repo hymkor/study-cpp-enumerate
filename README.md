@@ -125,3 +125,83 @@ enumerator_impl<T> make_enumerator(T &collection)
     return enumerator_impl<T>(collection.begin(), collection.end());
 }
 ```
+
+辞書向けバージョン
+-----------------
+
+### `sub2.cpp`
+
+```sub2.cpp
+#include <string>
+#include <iostream>
+#include "enumerate2.h"
+
+void sub(pair_enumerator<std::string,int> &each)
+{
+    std::string key;
+    int value;
+    while( each(key,value) ){
+        std::cout << key << ":" << value << std::endl;
+    }
+}
+
+```
+
+### `main2.cpp`
+
+```main2.cpp
+#include <string>
+#include <map>
+#include <unordered_map>
+
+#include "enumerate2.h"
+
+extern void sub(pair_enumerator<std::string,int> &each);
+
+int main(){
+    std::map<std::string,int> map;
+    map["ahaha"] = 1;
+    map["ihihi"] = 2;
+    map["ufufu"] = 3;
+    sub(make_pair_enumerator(map));
+
+    std::unordered_map<std::string,int> umap;
+    umap["AHAHA"] = 1;
+    umap["IHIHI"] = 2;
+    umap["UFUFU"] = 3;
+    sub(make_pair_enumerator(umap));
+}
+```
+
+### `enumerate2.h`
+
+```enumerate2.h
+#include <functional>
+
+template <typename T>
+class pair_enumerator_impl {
+    typename T::iterator m_cursor,m_end;
+public:
+    pair_enumerator_impl(typename T::iterator begin,typename T::iterator end)
+        : m_cursor(begin) , m_end(end) {}
+    bool operator() (typename T::key_type    &first,
+                     typename T::mapped_type &second) {
+        if( m_cursor == m_end ){
+            return false;
+        }
+        first = m_cursor->first;
+        second = m_cursor->second;
+        m_cursor++;
+        return true;
+    };
+};
+
+template <typename Key,typename Mapped>
+using pair_enumerator = const std::function<bool(Key&,Mapped&)>;
+
+template <typename T>
+pair_enumerator_impl<T> make_pair_enumerator(T &collection)
+{
+    return pair_enumerator_impl<T>(collection.begin(), collection.end());
+}
+```
