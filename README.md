@@ -89,23 +89,22 @@ z
 
 ### 実装 (enumerate.h)
 
-+ `enumerator_impl<T>` という型は `bool operator()(bool(T&))` というメソッドを持っており、関数の体裁で呼び出すことができる
++ `make_enumerator<T>` という型は `bool operator()(bool(T&))` というメソッドを持っており、関数の体裁で呼び出すことができる
 + つまり、関数オブジェクトであるから、 `std::function<bool(T&)>` へ変換することができる。
 + ゆえに関数側のパラメータは `std::set` や `std::vector` などの型に固定しなくてよくなる。
 
 + この二つの組み合わせだけでも利用可能であるが、見かけの体裁を読みやすくするため、次のようなガワをかぶせた。
-    + `enumerator_impl` のコンストラクタ → 型名を省略できるように関数 `make_enumerator` をかませる
     + `function<bool(T&)>` の別名として `enumerator<T>` を定義(using)
 
 ```enumerate.h
 #include <functional>
 
 template <typename T>
-class enumerator_impl {
+class make_enumerator {
     typename T::iterator m_cursor,m_end;
 public:
-    enumerator_impl(typename T::iterator begin,typename T::iterator end)
-        : m_cursor(begin) , m_end(end) {}
+    make_enumerator(T &t)
+        : m_cursor(t.begin()) , m_end(t.end()) {}
     bool operator() (typename T::value_type &store) {
         if( m_cursor == m_end ){
             return false;
@@ -118,12 +117,6 @@ public:
 
 template <typename T>
 using enumerator = const std::function<bool(T&)>;
-
-template <typename T>
-enumerator_impl<T> make_enumerator(T &collection)
-{
-    return enumerator_impl<T>(collection.begin(), collection.end());
-}
 ```
 
 辞書向けバージョン
@@ -179,11 +172,11 @@ int main(){
 #include <functional>
 
 template <typename T>
-class pair_enumerator_impl {
+class make_pair_enumerator {
     typename T::iterator m_cursor,m_end;
 public:
-    pair_enumerator_impl(typename T::iterator begin,typename T::iterator end)
-        : m_cursor(begin) , m_end(end) {}
+    make_pair_enumerator(T &t)
+        : m_cursor(t.begin()) , m_end(t.end()) {}
     bool operator() (typename T::key_type    &first,
                      typename T::mapped_type &second) {
         if( m_cursor == m_end ){
@@ -198,10 +191,4 @@ public:
 
 template <typename Key,typename Mapped>
 using pair_enumerator = const std::function<bool(Key&,Mapped&)>;
-
-template <typename T>
-pair_enumerator_impl<T> make_pair_enumerator(T &collection)
-{
-    return pair_enumerator_impl<T>(collection.begin(), collection.end());
-}
 ```
