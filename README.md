@@ -44,9 +44,9 @@ template<class T> void put(T cursor,T end)
 }
 ```
 
-これをビルドするとリンクエラーになるので、関数 put をヘッダファイルに置くか、sub0.cpp 側ですべての想定される T の型に対して実体化しておかなくていけない[^extern template]
+これをビルドするとリンクエラーになるので、関数 put をヘッダファイルに置くか、sub0.cpp 側ですべての想定される T の型に対して実体化しておかなくていけない[^externtemplate]
 
-[^extern template]: extern template というものを使う。例：[main0_.cpp](./main0_.cpp),  [sub0_.cpp](./sub0_.cpp) ; 参考文献：[[C++11] extern templateの機能とその使い道 - Qiita](https://qiita.com/Kogia_sima/items/b7a1e23a78f81d913089)
+[^externtemplate]: externtemplate というものを使う。例：[main0_.cpp](./main0_.cpp),  [sub0_.cpp](./sub0_.cpp) ; 参考文献：[[C++11] extern templateの機能とその使い道 - Qiita](https://qiita.com/Kogia_sima/items/b7a1e23a78f81d913089)
 
 put が巨大な関数の場合、前者はビルドが遅くなるし、後者のようなものはきちんとメンテしないと使わない無駄な実体が発生してしまう。
 
