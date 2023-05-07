@@ -1,7 +1,56 @@
 std::vector / std::set 両方からデータを取れる関数の本体をあまりテンプレートにしたくない
 =============
 
-std::vector / std::set 両方からデータを取れる関数をテンプレートにすると、 その関数をヘッダファイルに定義しなくちゃいけなくなるから。
+現状こういうことはできない
+------------------------
+
+[main0.cpp](./main0.cpp)
+
+```main0.cpp
+#include <string>
+#include <vector>
+#include <set>
+#include <list>
+
+template<class T> void put(T cursor,T end);
+
+int main(){
+    std::vector<std::string> v;
+    v.push_back( "a" );
+    v.push_back( "b" );
+    v.push_back( "c" );
+
+    put( v.begin() , v.end() );
+
+    std::set<std::string> s;
+    s.insert( "1" );
+    s.insert( "2" );
+    s.insert( "3" );
+
+    put( s.begin() , s.end() );
+}
+```
+
+[sub0.cpp](./sub0.cpp)
+
+```sub0.cpp
+#include <iostream>
+
+template<class T> void put(T cursor,T end)
+{
+    for( ; cursor != end ; cursor++ ){
+        std::cout << *cursor << std::endl;
+    }
+}
+```
+
+これをビルドするとリンクエラーになるので、関数 put をヘッダファイルに置くか、sub0.cpp 側ですべての想定される T の型に対して実体化しておかなくていけない[^extern template]
+
+[^extern template]: extern template というものを使う。例：[main0_.cpp](./main0_.cpp),  [sub0_.cpp](./sub0_.cpp) ; 参考文献：[[C++11] extern templateの機能とその使い道 - Qiita](https://qiita.com/Kogia_sima/items/b7a1e23a78f81d913089)
+
+put が巨大な関数の場合、前者はビルドが遅くなるし、後者のようなものはきちんとメンテしないと使わない無駄な実体が発生してしまう。
+
+うまいことソースを分割したまま、任意のコンテナの要素を列挙できる仕組みは作れないか
 
 過去のトライ
 -----------
@@ -31,7 +80,7 @@ void put(enumerator<std::string> &each)
 }
 ```
 
-+ `sub.cpp` 側では、`<vector>` も `<set>` も include していない  
++ `sub.cpp` 側では、`<vector>` も `<set>` も include していない
   ( ただし、`"enumerate.h"` の中で `<functional.h>` だけは include している。詳しくは後述 )
 + `std::vector` や `std::set` などのコレクションを引き受ける引数の型は `enumerator<T>` という型にしておく.
 
