@@ -15,7 +15,7 @@ std::vector / std::set 両方からデータを取れる関数をテンプレー
 
 ### 利用例
 
-#### 関数側 (sub.cpp)
+#### 関数側 ([sub.cpp](./sub.cpp))
 
 ```sub.cpp
 #include <string>
@@ -35,7 +35,7 @@ void put(enumerator<std::string> &each)
   ( ただし、`"enumerate.h"` の中で `<functional.h>` だけは include している。詳しくは後述 )
 + `std::vector` や `std::set` などのコレクションを引き受ける引数の型は `enumerator<T>` という型にしておく.
 
-#### 呼び出し側 (main.cpp)
+#### 呼び出し側 ([main.cpp](./main.cpp))
 
 ```main.cpp
 #include <string>
@@ -87,7 +87,7 @@ y
 z
 ```
 
-### 実装 (enumerate.h)
+### 実装 ([enumerate.h](./enumerate.h))
 
 + `make_enumerator<T>` という型は `bool operator()(bool(T&))` というメソッドを持っており、関数の体裁で呼び出すことができる
 + つまり、関数オブジェクトであるから、 `std::function<bool(T&)>` へ変換することができる。
@@ -122,7 +122,7 @@ using enumerator = const std::function<bool(T&)>;
 辞書向けバージョン
 -----------------
 
-### `sub2.cpp`
+### [sub2.cpp](./sub2.cpp)
 
 ```sub2.cpp
 #include <string>
@@ -140,7 +140,7 @@ void sub(pair_enumerator<std::string,int> &each)
 
 ```
 
-### `main2.cpp`
+### [main2.cpp](./main2.cpp)
 
 ```main2.cpp
 #include <string>
@@ -166,7 +166,7 @@ int main(){
 }
 ```
 
-### `enumerate2.h`
+### [enumerate2.h](./enumerate2.h)
 
 ```enumerate2.h
 #include <functional>
