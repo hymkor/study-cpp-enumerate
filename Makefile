@@ -10,7 +10,7 @@ endif
 all: main$(EXE) cmain$(EXE) main2$(EXE) main0_$(EXE) main0$(EXE)
 
 clean:
-	$(DEL) *.o main$(EXE) cmain$(EXE) *~
+	$(DEL) *.o main$(EXE) cmain$(EXE) *~ *.exe
 
 main$(EXE): main.o sub.o
 	g++ -o $@ $^
